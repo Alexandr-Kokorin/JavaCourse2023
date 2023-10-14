@@ -1,5 +1,6 @@
 package edu.hw1;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public final class Task3 {
@@ -14,18 +15,12 @@ public final class Task3 {
     }
 
     private static int max(int[] array) {
-        int max = array[0];
-        for (int number : array) {
-            max = Math.max(max, number);
-        }
-        return max;
+        var result = Arrays.stream(array).max();
+        return result.isPresent() ? result.getAsInt() : Integer.MIN_VALUE;
     }
 
     private static int min(int[] array) {
-        int min = array[0];
-        for (int number : array) {
-            min = Math.min(min, number);
-        }
-        return min;
+        var result = Arrays.stream(array).min();
+        return result.isPresent() ? result.getAsInt() : Integer.MAX_VALUE;
     }
 }
