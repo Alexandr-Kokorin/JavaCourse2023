@@ -20,8 +20,7 @@ public class Task2Test {
     @ParameterizedTest
     @MethodSource("rectangles")
     void rectangleArea(Rectangle rect) {
-        rect.setWidth(20);
-        rect.setHeight(10);
+        rect = rect.setSize(20, 10);
 
         assertThat(rect.area()).isEqualTo(200.0);
     }
@@ -29,7 +28,7 @@ public class Task2Test {
     @Test
     void squareArea() {
         Square square = new Square();
-        square.setSize(5);
+        square = square.setSize(5);
 
         assertThat(square.area()).isEqualTo(25.0);
     }

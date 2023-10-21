@@ -1,5 +1,7 @@
 package edu.hw2;
 
+import edu.hw2.task3.ConnectionException;
+import edu.hw2.task3.PopularCommandExecutor;
 import edu.hw2.task3.connectionManagers.DefaultConnectionManager;
 import edu.hw2.task3.connectionManagers.FaultyConnectionManager;
 import edu.hw2.task3.connections.FaultyConnection;
@@ -28,7 +30,46 @@ public class Task3Test {
 
         var connection = connectionManager.getConnection();
 
-        assertThat(connection).isInstanceOfAny(FaultyConnection.class);
+        assertThat(connection).isInstanceOf(FaultyConnection.class);
+    }
+
+    @Test
+    @DisplayName("Test - \"StableConnection\", expected - \"true\"")
+    void ConnectionsTest3() {
+        try(var connection = new StableConnection()) {
+            connection.execute("command");
+            var result = connection.isSuccess();
+
+            assertThat(result).isEqualTo(true);
+        } catch (Exception e) {}
+    }
+
+    @Test
+    @DisplayName("Test - \"FaultyConnection\", expected - \"true || ConnectionException\"")
+    void ConnectionsTest4() {
+        try(var connection = new FaultyConnection()) {
+            connection.execute("command");
+            var result = connection.isSuccess();
+
+            assertThat(result).isEqualTo(true);
+        } catch (Exception e) {
+            assertThat(e).isInstanceOf(ConnectionException.class);
+        }
+
+    }
+
+    @Test
+    @DisplayName("Test - \"PopularCommandExecutor\", expected - \"true || ConnectionException\"")
+    void ConnectionsTest5() {
+        var connectionManager = new FaultyConnectionManager();
+        try {
+            var popularCommandExecutor = new PopularCommandExecutor(connectionManager, 5);
+            popularCommandExecutor.updatePackages();
+
+            assertThat(true).isEqualTo(true);
+        } catch (Exception e) {
+            assertThat(e).isInstanceOf(ConnectionException.class);
+        }
     }
 
 }

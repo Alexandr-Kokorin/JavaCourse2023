@@ -62,4 +62,20 @@ public class Task1Test {
 
         assertThat(result).isEqualTo(125.0);
     }
+
+    @Test
+    @DisplayName("Test - \"All\", expected - \"37.0\"")
+    void ExprTest6() {
+        var two = new Expr.Constant(2);
+        var four = new Expr.Constant(4);
+        var negOne = new Expr.Negate(new Expr.Constant(1));
+        var sumTwoFour = new Expr.Addition(two, four);
+        var multi = new Expr.Multiplication(sumTwoFour, negOne);
+        var exp = new Expr.Exponent(multi, 2);
+        var res = new Expr.Addition(exp, new Expr.Constant(1));
+
+        double result = res.evaluate();
+
+        assertThat(result).isEqualTo(37.0);
+    }
 }
