@@ -36,7 +36,7 @@ public class Task3Test {
     @Test
     @DisplayName("Test - \"StableConnection\", expected - \"true\"")
     void ConnectionsTest3() {
-        try(var connection = new StableConnection()) {
+        try (var connection = new StableConnection()) {
             connection.execute("command");
             var result = connection.isSuccess();
 
@@ -47,7 +47,7 @@ public class Task3Test {
     @Test
     @DisplayName("Test - \"FaultyConnection\", expected - \"true || ConnectionException\"")
     void ConnectionsTest4() {
-        try(var connection = new FaultyConnection()) {
+        try (var connection = new FaultyConnection()) {
             connection.execute("command");
             var result = connection.isSuccess();
 
