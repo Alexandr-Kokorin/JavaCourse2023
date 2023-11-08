@@ -3,36 +3,31 @@ package edu.hw3.task8;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
 
-public class BackwardIterator<T> implements Iterator<T>, Iterable<T> {
+public class BackwardIterator<T> implements Iterator<T> {
 
-    private final List<T> list = new ArrayList<>();
+    private final List<T> list;
+    private int index;
 
     public BackwardIterator(List<T> list) {
-        this.list.addAll(list);
-    }
-
-    @NotNull
-    @Override
-    public Iterator<T> iterator() {
-        return this;
+        this.list = new ArrayList<>(list);
+        index = list.size() - 1;
     }
 
     @Override
     public boolean hasNext() {
-        return list.size() > 0;
+        return index >= 0;
     }
 
     @Override
     public T next() {
-        T temp = list.get(list.size() - 1);
+        T temp = list.get(index);
         remove();
         return temp;
     }
 
     @Override
     public void remove() {
-        list.remove(list.size() - 1);
+        index--;
     }
 }

@@ -2,59 +2,44 @@ package edu.hw3;
 
 import edu.hw3.task4.Task4;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DisplayName("TestConvertToRoman")
 public class Task4Test {
 
-    @Test
-    @DisplayName("Test - \"2\", expected - \"II\"")
-    void convertToRomanTest1() {
-        int number = 2;
-
-        String result = Task4.convertToRoman(number);
-
-        assertThat(result).isEqualTo("II");
+    static Arguments[] convertToRomanTestData() {
+        return new Arguments[] {
+            Arguments.of(
+                2,
+                "II"
+            ),
+            Arguments.of(
+                12,
+                "XII"
+            ),
+            Arguments.of(
+                16,
+                "XVI"
+            ),
+            Arguments.of(
+                2017,
+                "MMXVII"
+            ),
+            Arguments.of(
+                -2,
+                ""
+            )
+        };
     }
 
-    @Test
-    @DisplayName("Test - \"12\", expected - \"XII\"")
-    void convertToRomanTest2() {
-        int number = 12;
+    @ParameterizedTest
+    @MethodSource("convertToRomanTestData")
+    void convertToRoman_ResultShouldMatchExpected(int test, String expected) {
+        String result = Task4.convertToRoman(test);
 
-        String result = Task4.convertToRoman(number);
-
-        assertThat(result).isEqualTo("XII");
-    }
-
-    @Test
-    @DisplayName("Test - \"16\", expected - \"XVI\"")
-    void convertToRomanTest3() {
-        int number = 16;
-
-        String result = Task4.convertToRoman(number);
-
-        assertThat(result).isEqualTo("XVI");
-    }
-
-    @Test
-    @DisplayName("Test - \"2017\", expected - \"MMXVII\"")
-    void convertToRomanTest4() {
-        int number = 2017;
-
-        String result = Task4.convertToRoman(number);
-
-        assertThat(result).isEqualTo("MMXVII");
-    }
-
-    @Test
-    @DisplayName("Test - \"-2\", expected - \"\"")
-    void convertToRomanTest5() {
-        int number = -2;
-
-        String result = Task4.convertToRoman(number);
-
-        assertThat(result).isEqualTo("");
+        assertThat(result).isEqualTo(expected);
     }
 }

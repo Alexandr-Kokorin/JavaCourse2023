@@ -1,14 +1,12 @@
 package edu.hw3.task4;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("MagicNumber")
 public final class Task4 {
 
     private static final Map<Integer, String> DICTIONARY;
-    private static final List<Integer> NUMBERS;
 
     static {
         DICTIONARY = new HashMap<>();
@@ -25,8 +23,6 @@ public final class Task4 {
         DICTIONARY.put(500, "D");
         DICTIONARY.put(900, "CM");
         DICTIONARY.put(1000, "M");
-
-        NUMBERS = List.of(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1);
     }
 
     private Task4() {}
@@ -36,15 +32,26 @@ public final class Task4 {
             return "";
         }
         StringBuilder result = new StringBuilder();
-        int n = number;
-        int index = 0;
-        while (n > 0) {
-            while (NUMBERS.get(index) > n) {
-                index++;
+        int num = number;
+        int minus = 1000;
+        while (num > 0) {
+            while (minus > num) {
+                minus = getSmallerNumber(minus);
             }
-            n -= NUMBERS.get(index);
-            result.append(DICTIONARY.get(NUMBERS.get(index)));
+            num -= minus;
+            result.append(DICTIONARY.get(minus));
         }
         return result.toString();
+    }
+
+    private static int getSmallerNumber(int n) {
+        String num = String.valueOf(n);
+        int temp = switch (num.charAt(0)) {
+            case '1', '5' -> 1;
+            case '9' -> 4;
+            case '4' -> 3;
+            default -> 0;
+        };
+        return n - temp * (int) Math.pow(10, num.charAt(0) == '1' ? num.length() - 2 : num.length() - 1);
     }
 }

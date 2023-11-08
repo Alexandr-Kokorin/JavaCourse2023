@@ -7,7 +7,7 @@ public final class Task5 {
 
     private Task5() {}
 
-    public static Contact[] parseContacts(String[] names, String direction) {
+    public static Contact[] parseContacts(String[] names, Direction direction) {
         if (Objects.isNull(names)) {
             return new Contact[0];
         }
@@ -19,14 +19,12 @@ public final class Task5 {
         return contacts;
     }
 
-    private static void sort(Contact[] contacts, String direction) {
+    private static void sort(Contact[] contacts, Direction direction) {
         Arrays.sort(contacts, ((o1, o2) -> {
-            String name1 = o1.getSurname() != null ? o1.getSurname() : o1.getName();
-            String name2 = o2.getSurname() != null ? o2.getSurname() : o2.getName();
-            if (direction.equals("ASC")) {
-                return name1.compareToIgnoreCase(name2);
+            if (direction == Direction.ASK) {
+                return o1.compareTo(o2);
             } else {
-                return name2.compareToIgnoreCase(name1);
+                return o2.compareTo(o1);
             }
         }));
     }

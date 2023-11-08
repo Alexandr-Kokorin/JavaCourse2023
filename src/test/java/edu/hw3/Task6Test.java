@@ -12,7 +12,7 @@ public class Task6Test {
 
     @Test
     @DisplayName("Test - \"add 2\", expected - \"2\"")
-    void stockMarketTest1() {
+    void stockMarket_Add2_Expected2() {
         StockMarket market = new Market();
         Stock stock = new Stock(2);
 
@@ -24,7 +24,7 @@ public class Task6Test {
 
     @Test
     @DisplayName("Test - \"add 2, 3\", expected - \"3\"")
-    void stockMarketTest2() {
+    void stockMarket_Add2Add3_Expected3() {
         StockMarket market = new Market();
         Stock stock1 = new Stock(2);
         Stock stock2 = new Stock(3);
@@ -38,7 +38,7 @@ public class Task6Test {
 
     @Test
     @DisplayName("Test - \"add 2, 3; remove 3\", expected - \"2\"")
-    void stockMarketTest3() {
+    void stockMarket_Add2Add3Remove3_Expected2() {
         StockMarket market = new Market();
         Stock stock1 = new Stock(2);
         Stock stock2 = new Stock(3);
@@ -53,11 +53,10 @@ public class Task6Test {
 
     @Test
     @DisplayName("Test - \"add null\", expected - \"null\"")
-    void stockMarketTest4() {
+    void stockMarket_AddNull_ExpectedNull() {
         StockMarket market = new Market();
-        Stock stock = null;
 
-        market.add(stock);
+        market.add(null);
         Stock result = market.mostValuableStock();
 
         assertThat(result).isEqualTo(null);
@@ -65,7 +64,7 @@ public class Task6Test {
 
     @Test
     @DisplayName("Test - \"remove 2\", expected - \"null\"")
-    void stockMarketTest5() {
+    void stockMarket_Remove2_ExpectedNull() {
         StockMarket market = new Market();
         Stock stock = new Stock(2);
 
@@ -77,13 +76,12 @@ public class Task6Test {
 
     @Test
     @DisplayName("Test - \"add 2, null\", expected - \"2\"")
-    void stockMarketTest6() {
+    void stockMarket_Add2AddNull_Expected2() {
         StockMarket market = new Market();
         Stock stock1 = new Stock(2);
-        Stock stock2 = null;
 
         market.add(stock1);
-        market.add(stock2);
+        market.add(null);
         Stock result = market.mostValuableStock();
 
         assertThat(result).isEqualTo(new Stock(2));

@@ -2,69 +2,48 @@ package edu.hw3;
 
 import edu.hw3.task2.Task2;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DisplayName("TestClusterize")
 public class Task2Test {
 
-    @Test
-    @DisplayName("Test - \"()()()\", expected - \"[\"()\", \"()\", \"()\"]\"")
-    void clusterizeTest1() {
-        String string = "()()()";
-
-        String[] result = Task2.clusterize(string);
-
-        assertThat(result).containsExactly("()", "()", "()");
+    static Arguments[] clusterizeTestData() {
+        return new Arguments[] {
+            Arguments.of(
+                "()()()",
+                new String[]{"()", "()", "()"}
+            ),
+            Arguments.of(
+                "((()))",
+                new String[]{"((()))"}
+            ),
+            Arguments.of(
+                "((()))(())()()(()())",
+                new String[]{"((()))", "(())", "()", "()", "(()())"}
+            ),
+            Arguments.of(
+                "((())())(()(()()))",
+                new String[]{"((())())", "(()(()()))"}
+            ),
+            Arguments.of(
+                "())",
+                new String[]{"()"}
+            ),
+            Arguments.of(
+                null,
+                new String[]{}
+            )
+        };
     }
 
-    @Test
-    @DisplayName("Test - \"((()))\", expected - \"[\"((()))\"]\"")
-    void clusterizeTest2() {
-        String string = "((()))";
+    @ParameterizedTest
+    @MethodSource("clusterizeTestData")
+    void clusterize_ResultShouldMatchExpected(String test, String[] expected) {
+        String[] result = Task2.clusterize(test);
 
-        String[] result = Task2.clusterize(string);
-
-        assertThat(result).containsExactly("((()))");
-    }
-
-    @Test
-    @DisplayName("Test - \"((()))(())()()(()())\", expected - \"[\"((()))\", \"(())\", \"()\", \"()\", \"(()())\"]\"")
-    void clusterizeTest3() {
-        String string = "((()))(())()()(()())";
-
-        String[] result = Task2.clusterize(string);
-
-        assertThat(result).containsExactly("((()))", "(())", "()", "()", "(()())");
-    }
-
-    @Test
-    @DisplayName("Test - \"((())())(()(()()))\", expected - \"[\"((())())\", \"(()(()()))\"]\"")
-    void clusterizeTest4() {
-        String string = "((())())(()(()()))";
-
-        String[] result = Task2.clusterize(string);
-
-        assertThat(result).containsExactly("((())())", "(()(()()))");
-    }
-
-    @Test
-    @DisplayName("Test - \"())\", expected - \"[\"()\"]\"")
-    void clusterizeTest5() {
-        String string = "())";
-
-        String[] result = Task2.clusterize(string);
-
-        assertThat(result).containsExactly("()");
-    }
-
-    @Test
-    @DisplayName("Test - \"null\", expected - \"[]\"")
-    void clusterizeTest6() {
-        String string = null;
-
-        String[] result = Task2.clusterize(string);
-
-        assertThat(result).containsExactly();
+        assertThat(result).isEqualTo(expected);
     }
 }
