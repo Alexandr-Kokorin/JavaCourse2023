@@ -1,6 +1,6 @@
 package edu.hw4;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -60,10 +60,12 @@ public final class Tasks {
             return null;
         }
         return animals.stream()
-            .collect(Collectors.groupingBy(Animal::type,
+            .collect(Collectors.groupingBy(
+                Animal::type,
                 Collectors.maxBy(Comparator.comparingInt(Animal::weight))))
             .entrySet().stream()
-            .collect(Collectors.toMap(Map.Entry::getKey,
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
                 typeOptionalEntry -> typeOptionalEntry.getValue().orElseThrow()));
     }
 
@@ -73,7 +75,7 @@ public final class Tasks {
         }
         return animals.stream()
             .sorted(Comparator.comparingInt(Animal::age).reversed())
-            .skip(k - 1).toList().get(0);
+            .skip(k - 1).findFirst().orElseThrow();
     }
 
     public static Optional<Animal> task8(List<Animal> animals, int k) {
@@ -169,12 +171,9 @@ public final class Tasks {
         if (Objects.isNull(lists)) {
             return null;
         }
-        List<Animal> maxFishes = new ArrayList<>();
-        for (List<Animal> animals: lists) {
-            maxFishes.add(animals.stream().filter(animal -> animal.type() == Animal.Type.FISH)
-                .max(Comparator.comparingInt(Animal::weight)).orElseThrow());
-        }
-        return maxFishes.stream().max(Comparator.comparingInt(Animal::weight)).orElseThrow();
+        return Arrays.stream(lists)
+            .flatMap(animals -> animals.stream().filter(animal -> animal.type() == Animal.Type.FISH))
+            .max(Comparator.comparingInt(Animal::weight)).orElseThrow();
     }
 
     public static Map<String, Set<ValidationError>> task19(List<Animal> animals) {
@@ -182,8 +181,10 @@ public final class Tasks {
             return null;
         }
         return animals.stream()
-            .filter(animal -> Validator.validate(animal).size() > 0)
-            .collect(Collectors.toMap(Animal::name, Validator::validate));
+            .collect(Collectors.collectingAndThen(
+                Collectors.toMap(Animal::name, Validator::validate),
+                map -> map.entrySet().stream().filter(entry -> entry.getValue().size() > 0)
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
     }
 
     public static Map<String, String> task20(List<Animal> animals) {
@@ -194,7 +195,8 @@ public final class Tasks {
             .filter(animal -> Validator.validate(animal).size() > 0)
             .collect(Collectors.toMap(Animal::name, Validator::validate))
             .entrySet().stream()
-            .collect(Collectors.toMap(Map.Entry::getKey,
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
                 stringSetEntry -> Validator.toString(stringSetEntry.getValue())));
     }
 }
