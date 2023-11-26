@@ -17,4 +17,8 @@ public final class Task6 {
         String regex = stringBuilder.append(".*").toString();
         return text.matches(regex);
     }
+
+    public static boolean isSubstring(String substring, String text) {
+        return text.matches(".*" + substring + ".*");
+    }
 }

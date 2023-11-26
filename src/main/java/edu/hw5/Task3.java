@@ -54,35 +54,16 @@ public final class Task3 {
     }
 
     private static Optional<LocalDate> checkType5(String string) {
-        if (string.equals("tomorrow")) {
-            return Optional.of(LocalDate.now().plusDays(1));
-        }
-        return checkType6(string);
+        return switch (string) {
+            case "tomorrow" -> Optional.of(LocalDate.now().plusDays(1));
+            case "today" -> Optional.of(LocalDate.now());
+            case "yesterday" -> Optional.of(LocalDate.now().minusDays(1));
+            default -> checkType6(string);
+        };
     }
 
     private static Optional<LocalDate> checkType6(String string) {
-        if (string.equals("today")) {
-            return Optional.of(LocalDate.now());
-        }
-        return checkType7(string);
-    }
-
-    private static Optional<LocalDate> checkType7(String string) {
-        if (string.equals("yesterday")) {
-            return Optional.of(LocalDate.now().minusDays(1));
-        }
-        return checkType8(string);
-    }
-
-    private static Optional<LocalDate> checkType8(String string) {
-        if (string.equals("1 day ago")) {
-            return Optional.of(LocalDate.now().minusDays(1));
-        }
-        return checkType9(string);
-    }
-
-    private static Optional<LocalDate> checkType9(String string) {
-        if (string.matches("\\d+ days ago")) {
+        if (string.matches("\\d+ (day|days) ago")) {
             return Optional.of(LocalDate.now().minusDays(Integer.parseInt(string.split(" ")[0])));
         }
         return Optional.empty();

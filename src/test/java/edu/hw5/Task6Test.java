@@ -1,6 +1,7 @@
 package edu.hw5;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -40,5 +41,12 @@ public class Task6Test {
         boolean result = Task6.isSubsequences(subTest, test);
 
         assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    void isSubstringTest() {
+        boolean result = Task6.isSubstring("abc", "bbfabcye");
+
+        assertThat(result).isEqualTo(true);
     }
 }

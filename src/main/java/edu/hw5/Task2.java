@@ -19,7 +19,7 @@ public final class Task2 {
         LocalDate date = LocalDate.of(year, 1, DAY_OF_MONTH);
         for (int i = 0; i < MONTHS_PER_YEAR; i++) {
             if (date.getDayOfWeek() == DayOfWeek.FRIDAY) {
-                result.add(LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth()));
+                result.add(LocalDate.from(date));
             }
             date = date.plusMonths(1);
         }
@@ -30,7 +30,7 @@ public final class Task2 {
         if (Objects.isNull(date)) {
             return null;
         }
-        LocalDate friday13 = LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth());
+        LocalDate friday13 = LocalDate.from(date);
         do {
             friday13 = friday13.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
         } while (friday13.getDayOfMonth() != DAY_OF_MONTH);
