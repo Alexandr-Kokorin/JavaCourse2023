@@ -12,7 +12,7 @@ public final class Maze {
         grid = new Cell[height][width];
     }
 
-    public void addCell(int row, int col, Type type) {
+    public void setCell(int row, int col, Type type) {
         grid[row][col] = new Cell(new Coordinate(row, col), type);
     }
 

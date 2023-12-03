@@ -1,6 +1,5 @@
 package edu.project2.solvers;
 
-import edu.project2.gameObject.Cell;
 import edu.project2.gameObject.Coordinate;
 import edu.project2.gameObject.Maze;
 import edu.project2.gameObject.Type;
@@ -33,7 +32,7 @@ public class BFSSolver implements Solver {
             for (int i = 0; i < size; i++) {
                 List<Coordinate> list = paths.get(i);
                 List<Coordinate> neighbors = getUnvisitedNeighbors(maze, list.get(list.size() - 1), visitedCells);
-                if (neighbors.size() >= 1) {
+                if (!neighbors.isEmpty()) {
                     stopFlag = false;
                     list.add(neighbors.get(0));
                     visitedCells.add(neighbors.get(0));
@@ -55,36 +54,5 @@ public class BFSSolver implements Solver {
             }
         }
         return List.of();
-    }
-
-    private List<Coordinate> getUnvisitedNeighbors(Maze maze, Coordinate coordinate, Set<Coordinate> visitedCells) {
-        List<Coordinate> neighbors = new ArrayList<>();
-        int row = coordinate.row();
-        int col = coordinate.col();
-        Cell newCell = maze.getGrid()[row + 1][col];
-        if (checkCoordinate(row + 1, col, maze.getHeight(), maze.getWidth())
-            && newCell.getType() == Type.PASSAGE && !visitedCells.contains(newCell.getCoordinate())) {
-            neighbors.add(newCell.getCoordinate());
-        }
-        newCell = maze.getGrid()[row - 1][col];
-        if (checkCoordinate(row - 1, col, maze.getHeight(), maze.getWidth())
-            && newCell.getType() == Type.PASSAGE && !visitedCells.contains(newCell.getCoordinate())) {
-            neighbors.add(newCell.getCoordinate());
-        }
-        newCell = maze.getGrid()[row][col + 1];
-        if (checkCoordinate(row, col + 1, maze.getHeight(), maze.getWidth())
-            && newCell.getType() == Type.PASSAGE && !visitedCells.contains(newCell.getCoordinate())) {
-            neighbors.add(newCell.getCoordinate());
-        }
-        newCell = maze.getGrid()[row][col - 1];
-        if (checkCoordinate(row, col - 1, maze.getHeight(), maze.getWidth())
-            && newCell.getType() == Type.PASSAGE && !visitedCells.contains(newCell.getCoordinate())) {
-            neighbors.add(newCell.getCoordinate());
-        }
-        return neighbors;
-    }
-
-    private boolean checkCoordinate(int row, int col, int height, int width) {
-        return row >= 0 && row < height && col >= 0 && col < width;
     }
 }

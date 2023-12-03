@@ -34,20 +34,20 @@ public class SolverTest {
         Maze maze = new Maze(5, 10);
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int j = 0; j < maze.getWidth(); j++) {
-                maze.addCell(i, j, Type.WALL);
+                maze.setCell(i, j, Type.WALL);
             }
         }
-        maze.addCell(1, 1, Type.PASSAGE);
-        maze.addCell(1, 2, Type.PASSAGE);
-        maze.addCell(1, 6, Type.PASSAGE);
-        maze.addCell(2, 2, Type.PASSAGE);
-        maze.addCell(2, 3, Type.PASSAGE);
-        maze.addCell(2, 4, Type.PASSAGE);
-        maze.addCell(2, 5, Type.PASSAGE);
-        maze.addCell(2, 6, Type.PASSAGE);
-        maze.addCell(2, 7, Type.PASSAGE);
-        maze.addCell(3, 4, Type.PASSAGE);
-        maze.addCell(3, 7, Type.PASSAGE);
+        maze.setCell(1, 1, Type.PASSAGE);
+        maze.setCell(1, 2, Type.PASSAGE);
+        maze.setCell(1, 6, Type.PASSAGE);
+        maze.setCell(2, 2, Type.PASSAGE);
+        maze.setCell(2, 3, Type.PASSAGE);
+        maze.setCell(2, 4, Type.PASSAGE);
+        maze.setCell(2, 5, Type.PASSAGE);
+        maze.setCell(2, 6, Type.PASSAGE);
+        maze.setCell(2, 7, Type.PASSAGE);
+        maze.setCell(3, 4, Type.PASSAGE);
+        maze.setCell(3, 7, Type.PASSAGE);
 
         List<Coordinate> truePath = new ArrayList<>();
         truePath.add(new Coordinate(1, 1));
@@ -70,20 +70,20 @@ public class SolverTest {
         Maze maze = new Maze(5, 10);
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int j = 0; j < maze.getWidth(); j++) {
-                maze.addCell(i, j, Type.WALL);
+                maze.setCell(i, j, Type.WALL);
             }
         }
-        maze.addCell(1, 1, Type.PASSAGE);
-        maze.addCell(1, 2, Type.PASSAGE);
-        maze.addCell(1, 6, Type.PASSAGE);
-        maze.addCell(2, 2, Type.PASSAGE);
-        maze.addCell(2, 3, Type.PASSAGE);
-        maze.addCell(2, 4, Type.PASSAGE);
-        maze.addCell(2, 5, Type.PASSAGE);
-        maze.addCell(2, 6, Type.PASSAGE);
-        maze.addCell(2, 7, Type.PASSAGE);
-        maze.addCell(3, 4, Type.PASSAGE);
-        maze.addCell(3, 7, Type.PASSAGE);
+        maze.setCell(1, 1, Type.PASSAGE);
+        maze.setCell(1, 2, Type.PASSAGE);
+        maze.setCell(1, 6, Type.PASSAGE);
+        maze.setCell(2, 2, Type.PASSAGE);
+        maze.setCell(2, 3, Type.PASSAGE);
+        maze.setCell(2, 4, Type.PASSAGE);
+        maze.setCell(2, 5, Type.PASSAGE);
+        maze.setCell(2, 6, Type.PASSAGE);
+        maze.setCell(2, 7, Type.PASSAGE);
+        maze.setCell(3, 4, Type.PASSAGE);
+        maze.setCell(3, 7, Type.PASSAGE);
 
         List<Coordinate> truePath = List.of();
 
@@ -98,20 +98,20 @@ public class SolverTest {
         Maze maze = new Maze(5, 10);
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int j = 0; j < maze.getWidth(); j++) {
-                maze.addCell(i, j, Type.WALL);
+                maze.setCell(i, j, Type.WALL);
             }
         }
-        maze.addCell(1, 1, Type.PASSAGE);
-        maze.addCell(1, 2, Type.PASSAGE);
-        maze.addCell(1, 6, Type.PASSAGE);
-        maze.addCell(2, 2, Type.PASSAGE);
-        maze.addCell(2, 3, Type.PASSAGE);
-        maze.addCell(2, 4, Type.PASSAGE);
-        maze.addCell(2, 5, Type.PASSAGE);
-        maze.addCell(2, 6, Type.PASSAGE);
-        maze.addCell(2, 7, Type.PASSAGE);
-        maze.addCell(3, 4, Type.PASSAGE);
-        maze.addCell(3, 7, Type.PASSAGE);
+        maze.setCell(1, 1, Type.PASSAGE);
+        maze.setCell(1, 2, Type.PASSAGE);
+        maze.setCell(1, 6, Type.PASSAGE);
+        maze.setCell(2, 2, Type.PASSAGE);
+        maze.setCell(2, 3, Type.PASSAGE);
+        maze.setCell(2, 4, Type.PASSAGE);
+        maze.setCell(2, 5, Type.PASSAGE);
+        maze.setCell(2, 6, Type.PASSAGE);
+        maze.setCell(2, 7, Type.PASSAGE);
+        maze.setCell(3, 4, Type.PASSAGE);
+        maze.setCell(3, 7, Type.PASSAGE);
 
         List<Coordinate> truePath = List.of();
 
@@ -143,19 +143,19 @@ public class SolverTest {
         Maze maze = new Maze(5, 10);
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int j = 0; j < maze.getWidth(); j++) {
-                maze.addCell(i, j, Type.WALL);
+                maze.setCell(i, j, Type.WALL);
             }
         }
-        maze.addCell(1, 1, Type.PASSAGE);
-        maze.addCell(1, 2, Type.PASSAGE);
-        maze.addCell(1, 6, Type.PASSAGE);
-        maze.addCell(2, 2, Type.PASSAGE);
-        maze.addCell(2, 4, Type.PASSAGE);
-        maze.addCell(2, 5, Type.PASSAGE);
-        maze.addCell(2, 6, Type.PASSAGE);
-        maze.addCell(2, 7, Type.PASSAGE);
-        maze.addCell(3, 4, Type.PASSAGE);
-        maze.addCell(3, 7, Type.PASSAGE);
+        maze.setCell(1, 1, Type.PASSAGE);
+        maze.setCell(1, 2, Type.PASSAGE);
+        maze.setCell(1, 6, Type.PASSAGE);
+        maze.setCell(2, 2, Type.PASSAGE);
+        maze.setCell(2, 4, Type.PASSAGE);
+        maze.setCell(2, 5, Type.PASSAGE);
+        maze.setCell(2, 6, Type.PASSAGE);
+        maze.setCell(2, 7, Type.PASSAGE);
+        maze.setCell(3, 4, Type.PASSAGE);
+        maze.setCell(3, 7, Type.PASSAGE);
 
         List<Coordinate> truePath = List.of();
 
