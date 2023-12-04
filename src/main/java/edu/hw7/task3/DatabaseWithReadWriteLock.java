@@ -14,54 +14,72 @@ public class DatabaseWithReadWriteLock implements PersonDatabase {
 
     @Override
     public void add(Person person) {
-        lock.writeLock().lock();
-        database.put(person.id(), person);
-        lock.writeLock().unlock();
+        try {
+            lock.writeLock().lock();
+            database.put(person.id(), person);
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 
     @Override
     public void delete(int id) {
-        lock.writeLock().lock();
-        database.remove(id);
-        lock.writeLock().unlock();
+        try {
+            lock.writeLock().lock();
+            database.remove(id);
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 
     @Override
     public List<Person> findByName(String name) {
-        lock.readLock().lock();
-        List<Person> persons = new ArrayList<>();
-        for (int id : database.keySet()) {
-            if (database.get(id).name().equals(name)) {
-                persons.add(database.get(id));
-            }
+        List<Person> persons;
+        try {
+            lock.readLock().lock();
+            persons = findBy(Type.NAME, name);
+        } finally {
+            lock.readLock().unlock();
         }
-        lock.readLock().unlock();
         return persons;
     }
 
     @Override
     public List<Person> findByAddress(String address) {
-        lock.readLock().lock();
-        List<Person> persons = new ArrayList<>();
-        for (int id : database.keySet()) {
-            if (database.get(id).address().equals(address)) {
-                persons.add(database.get(id));
-            }
+        List<Person> persons;
+        try {
+            lock.readLock().lock();
+            persons = findBy(Type.ADDRESS, address);
+        } finally {
+            lock.readLock().unlock();
         }
-        lock.readLock().unlock();
         return persons;
     }
 
     @Override
     public List<Person> findByPhone(String phone) {
-        lock.readLock().lock();
+        List<Person> persons;
+        try {
+            lock.readLock().lock();
+            persons = findBy(Type.PHONE, phone);
+        } finally {
+            lock.readLock().unlock();
+        }
+        return persons;
+    }
+
+    private List<Person> findBy(Type type, String string) {
         List<Person> persons = new ArrayList<>();
         for (int id : database.keySet()) {
-            if (database.get(id).phoneNumber().equals(phone)) {
+            String value = switch (type) {
+                case NAME -> database.get(id).name();
+                case ADDRESS -> database.get(id).address();
+                case PHONE -> database.get(id).phoneNumber();
+            };
+            if (value.equals(string)) {
                 persons.add(database.get(id));
             }
         }
-        lock.readLock().unlock();
         return persons;
     }
 }

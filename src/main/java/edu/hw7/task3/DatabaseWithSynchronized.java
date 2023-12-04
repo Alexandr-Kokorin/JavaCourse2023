@@ -21,31 +21,28 @@ public class DatabaseWithSynchronized implements PersonDatabase {
 
     @Override
     public synchronized List<Person> findByName(String name) {
-        List<Person> persons = new ArrayList<>();
-        for (int id : database.keySet()) {
-            if (database.get(id).name().equals(name)) {
-                persons.add(database.get(id));
-            }
-        }
-        return persons;
+        return findBy(Type.NAME, name);
     }
 
     @Override
     public synchronized List<Person> findByAddress(String address) {
-        List<Person> persons = new ArrayList<>();
-        for (int id : database.keySet()) {
-            if (database.get(id).address().equals(address)) {
-                persons.add(database.get(id));
-            }
-        }
-        return persons;
+        return findBy(Type.ADDRESS, address);
     }
 
     @Override
     public synchronized List<Person> findByPhone(String phone) {
+        return findBy(Type.PHONE, phone);
+    }
+
+    private List<Person> findBy(Type type, String string) {
         List<Person> persons = new ArrayList<>();
         for (int id : database.keySet()) {
-            if (database.get(id).phoneNumber().equals(phone)) {
+            String value = switch (type) {
+                case NAME -> database.get(id).name();
+                case ADDRESS -> database.get(id).address();
+                case PHONE -> database.get(id).phoneNumber();
+            };
+            if (value.equals(string)) {
                 persons.add(database.get(id));
             }
         }

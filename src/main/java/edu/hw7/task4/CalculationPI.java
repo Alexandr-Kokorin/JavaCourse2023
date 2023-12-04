@@ -12,14 +12,7 @@ public final class CalculationPI {
     private static final int MULTI = 4;
 
     public static double calculateSimple(long totalCount) {
-        long circleCount = 0;
-        for (long i = 0; i < totalCount; i++) {
-            double x = ThreadLocalRandom.current().nextDouble();
-            double y = ThreadLocalRandom.current().nextDouble();
-            if (Math.pow(x - RADIUS, 2) + Math.pow(y - RADIUS, 2) <= Math.pow(RADIUS, 2)) {
-                circleCount++;
-            }
-        }
+        long circleCount = calculate(totalCount);
         return MULTI * ((double) circleCount / totalCount);
     }
 
@@ -28,19 +21,23 @@ public final class CalculationPI {
         AtomicLong circleCount = new AtomicLong();
         for (int i = 0; i < threadCount; i++) {
             new Thread(() -> {
-                long count = 0;
-                for (long j = 0; j < totalCount / threadCount; j++) {
-                    double x = ThreadLocalRandom.current().nextDouble();
-                    double y = ThreadLocalRandom.current().nextDouble();
-                    if (Math.pow(x - RADIUS, 2) + Math.pow(y - RADIUS, 2) <= Math.pow(RADIUS, 2)) {
-                        count++;
-                    }
-                }
-                circleCount.addAndGet(count);
+                circleCount.addAndGet(calculate(totalCount / threadCount));
                 latch.countDown();
             }).start();
         }
         latch.await();
         return MULTI * ((double) circleCount.get() / totalCount);
+    }
+
+    private static long calculate(long totalCount) {
+        long circleCount = 0;
+        for (long i = 0; i < totalCount; i++) {
+            double x = ThreadLocalRandom.current().nextDouble();
+            double y = ThreadLocalRandom.current().nextDouble();
+            if (Math.pow(x - RADIUS, 2) + Math.pow(y - RADIUS, 2) <= Math.pow(RADIUS, 2)) {
+                circleCount++;
+            }
+        }
+        return circleCount;
     }
 }
