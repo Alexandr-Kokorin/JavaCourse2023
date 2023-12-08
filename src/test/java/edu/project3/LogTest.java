@@ -27,6 +27,7 @@ public class LogTest {
                 null,
                 new LogEntry(
                     "194.58.90.185",
+                    "-",
                     OffsetDateTime.parse("24/May/2015:00:05:21 +0000", FORMATTER),
                     "GET /downloads/product_1 HTTP/1.1",
                     Integer.parseInt("304"),
@@ -42,6 +43,7 @@ public class LogTest {
                 null,
                 new LogEntry(
                     "93.180.71.3",
+                    "-",
                     OffsetDateTime.parse("17/May/2015:08:05:32 +0000", FORMATTER),
                     "GET /downloads/product_1 HTTP/1.1",
                     Integer.parseInt("304"),
@@ -57,6 +59,7 @@ public class LogTest {
                 null,
                 new LogEntry(
                     "194.58.90.185",
+                    "-",
                     OffsetDateTime.parse("24/May/2015:00:05:21 +0000", FORMATTER),
                     "GET /downloads/product_1 HTTP/1.1",
                     Integer.parseInt("304"),
@@ -81,6 +84,7 @@ public class LogTest {
         var result = Main.getLogs("logs" + File.separator + "2015*", null, null);
         LogEntry log = new LogEntry(
             "74.63.142.188",
+            "-",
             OffsetDateTime.parse("25/May/2015:23:05:45 +0000", FORMATTER),
             "GET /downloads/product_1 HTTP/1.1",
             Integer.parseInt("304"),
