@@ -1,13 +1,17 @@
 package edu.hw8.task2;
 
 import java.util.Objects;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class FixedThreadPool implements ThreadPool {
 
     private final Thread[] threads;
+    private final BlockingQueue<Runnable> queue;
 
     private FixedThreadPool(int n) {
         threads = new Thread[n];
+        queue = new LinkedBlockingQueue<>();
     }
 
     public static FixedThreadPool create(int n) {
@@ -15,29 +19,20 @@ public class FixedThreadPool implements ThreadPool {
     }
 
     @Override
-    public void start() {
-        for (Thread thread : threads) {
-            if (!Objects.isNull(thread) && !thread.isAlive()) {
-                thread.start();
+    public void start() throws InterruptedException {
+        while (!queue.isEmpty()) {
+            for (int i = 0; i < threads.length; i++) {
+                if (Objects.isNull(threads[i]) || !threads[i].isAlive()) {
+                    threads[i] = new Thread(queue.take());
+                    threads[i].start();
+                }
             }
         }
     }
 
     @Override
     public void execute(Runnable runnable) {
-        boolean flag = true;
-        while (flag) {
-            for (int i = 0; i < threads.length; i++) {
-                if (Objects.isNull(threads[i])) {
-                    threads[i] = new Thread(runnable);
-                    threads[i].start();
-                    flag = false;
-                    break;
-                } else if (!threads[i].isAlive()) {
-                    threads[i] = null;
-                }
-            }
-        }
+        queue.add(runnable);
     }
 
     @Override

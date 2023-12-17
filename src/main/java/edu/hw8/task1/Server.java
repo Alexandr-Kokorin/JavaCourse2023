@@ -24,10 +24,9 @@ public class Server extends Thread {
 
     @Override
     public void run() {
-        try {
+        try (ExecutorService executorService = Executors.newFixedThreadPool(countThreads);) {
             while (!stopFlag) {
                 Socket clientSocket = serverSocket.accept();
-                ExecutorService executorService = Executors.newFixedThreadPool(countThreads);
                 executorService.execute(new ClientHandler(clientSocket));
             }
         } catch (IOException e) {
